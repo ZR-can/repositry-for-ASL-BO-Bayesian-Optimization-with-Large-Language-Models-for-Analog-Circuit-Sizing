@@ -1,0 +1,166 @@
+* This file contains 1.8V, 3.3V mos, resistor and mim corner model parameters.
+* Five corners are supported: TT, FF, SS, SNFP, and FNSP.
+* This file should be used with the model parameter file 'ms018_rf_v1p5_mos.ckt', 'ms018_rf_v1p5_res.ckt' and 'ms018_rf_v1p5_mim.ckt'.
+* No part of this file can be released without the consent of SMIC.
+
+.LIB TT
+.PARAM
+*1.8V core NMOS 
++DTOX_N18_RF      = 0            DXL_N18_RF       = 0            DXW_N18_RF       = 0 
++DVTH_N18_RF      = 0            DCJ_N18_RF       = 0            DCJSW_N18_RF     = 0
++DPVTH0_N18_RF    = 0            DCGDO_N18_RF     = 0            DCGSO_N18_RF     = 0
+
+*1.8V core PMOS
++DTOX_P18_RF      = 0            DXL_P18_RF       = 0            DXW_P18_RF       = 0 
++DVTH_P18_RF      = 0	         DCJ_P18_RF       = 0            DCJSW_P18_RF     = 0
++DPVTH0_P18_RF    = 0	         DCGDO_P18_RF     = 0            DCGSO_P18_RF     = 0
+
+*3.3V IO NMOS 
++DTOX_N33_RF      = 0            DXL_N33_RF       = 0            DXW_N33_RF       = 0 
++DVTH_N33_RF      = 0            DCJ_N33_RF       = 0            DCJSW_N33_RF     = 0
++DPVTH0_N33_RF    = 0            DCGDO_N33_RF     = 0            DCGSO_N33_RF     = 0
+
+*3.3V IO PMOS
++DTOX_P33_RF      = 0            DXL_P33_RF       = 0            DXW_P33_RF       = 0 
++DVTH_P33_RF      = 0	         DCJ_P33_RF       = 0            DCJSW_P33_RF     = 0
++DPVTH0_P33_RF    = 0	         DCGDO_P33_RF     = 0            DCGSO_P33_RF     = 0
+.INC 'ms018_rf_v1p5_mos.ckt' 
+.ENDL  TT
+
+.LIB FF
+.PARAM
+*1.8V core NMOS 
++DTOX_N18_RF      = -1.0E-10     DXL_N18_RF       = -1.0E-8      DXW_N18_RF       = 2.2E-8 
++DVTH_N18_RF      = -0.04        DCJ_N18_RF       = -4.84E-5     DCJSW_N18_RF     = -2.09E-11
++DPVTH0_N18_RF    = -3E-15       DCGDO_N18_RF     = 1.85E-11     DCGSO_N18_RF     = 1.85E-11
+
+*1.8V core PMOS
++DTOX_P18_RF      = -1.0E-10     DXL_P18_RF       = -1.0E-8      DXW_P18_RF       = 2.2E-8 
++DVTH_P18_RF      = 0.02         DCJ_P18_RF       = -5.35E-5     DCJSW_P18_RF     = -2.535E-11
++DPVTH0_P18_RF    = 1E-15        DCGDO_P18_RF     = 2.1E-11      DCGSO_P18_RF     = 2.1E-11
+
+*3.3V IO NMOS  
++DTOX_N33_RF      = -3.0E-10     DXL_N33_RF       = -1.4E-8      DXW_N33_RF       = 2.2E-8 
++DVTH_N33_RF      = -0.05        DCJ_N33_RF       = -4.225E-5    DCJSW_N33_RF     = -1.705E-11
++DPVTH0_N33_RF    = -3.5E-15     DCGDO_N33_RF     = 1.93E-11     DCGSO_N33_RF     = 1.93E-11
+
+*3.3V IO PMOS
++DTOX_P33_RF      = -3.0E-10     DXL_P33_RF       = -1.4E-8      DXW_P33_RF       = 2.2E-8 
++DVTH_P33_RF      = 0.04	 DCJ_P33_RF       = -5.05E-5     DCJSW_P33_RF     = -1.595E-11
++DPVTH0_P33_RF    = 2E-15        DCGDO_P33_RF     = 1.615E-11    DCGSO_P33_RF     = 1.615E-11
+.INC 'ms018_rf_v1p5_mos.ckt' 
+.ENDL  FF
+
+.LIB SS
+.PARAM
+*1.8V core NMOS 
++DTOX_N18_RF      = 1.0E-10      DXL_N18_RF       = 1.0E-8       DXW_N18_RF       = -2.2E-8 
++DVTH_N18_RF      = 0.045        DCJ_N18_RF       = 4.84E-5      DCJSW_N18_RF     = 2.09E-11
++DPVTH0_N18_RF    = 3E-15        DCGDO_N18_RF     = -1.85E-11    DCGSO_N18_RF     = -1.85E-11
+
+*1.8V core PMOS
++DTOX_P18_RF      = 1.0E-10      DXL_P18_RF       = 1.0E-8       DXW_P18_RF       = -2.2E-8 
++DVTH_P18_RF      = -0.02        DCJ_P18_RF       = 5.35E-5      DCJSW_P18_RF     = 2.535E-11
++DPVTH0_P18_RF    = -1E-15       DCGDO_P18_RF     = -2.1E-11     DCGSO_P18_RF     = -2.1E-11
+
+*3.3V IO NMOS  
++DTOX_N33_RF      = 3.0E-10      DXL_N33_RF       = 1.4E-8       DXW_N33_RF       = -2.2E-8 
++DVTH_N33_RF      = 0.05         DCJ_N33_RF       = 4.225E-5     DCJSW_N33_RF     = 1.705E-11
++DPVTH0_N33_RF    = 3.5E-15      DCGDO_N33_RF     = -1.93E-11    DCGSO_N33_RF     = -1.93E-11
+
+*3.3V IO PMOS
++DTOX_P33_RF      = 3.0E-10      DXL_P33_RF       = 1.4E-8       DXW_P33_RF       = -2.2E-8 
++DVTH_P33_RF      = -0.04        DCJ_P33_RF       = 5.05E-5      DCJSW_P33_RF     = 1.595E-11
++DPVTH0_P33_RF    = -2E-15       DCGDO_P33_RF     = -1.615E-11   DCGSO_P33_RF     = -1.615E-11
+.INC 'ms018_rf_v1p5_mos.ckt' 
+.ENDL  SS
+
+.LIB FNSP
+.PARAM
+*1.8V core NMOS 
++DTOX_N18_RF      = 0            DXL_N18_RF       = -1.00E-8     DXW_N18_RF       = 1.8E-8 
++DVTH_N18_RF      = -0.04        DCJ_N18_RF       = -4.84E-5     DCJSW_N18_RF     = -2.09E-11
++DPVTH0_N18_RF    = -3E-15       DCGDO_N18_RF     = 0            DCGSO_N18_RF     = 0
+
+*1.8V core PMOS
++DTOX_P18_RF      = 0            DXL_P18_RF       = 1.00E-8      DXW_P18_RF       = -1.8E-8 
++DVTH_P18_RF      = -0.02        DCJ_P18_RF       = 5.35E-5      DCJSW_P18_RF     = 2.535E-11
++DPVTH0_P18_RF    = -1E-15       DCGDO_P18_RF     = 0            DCGSO_P18_RF     = 0
+
+*3.3V IO NMOS  
++DTOX_N33_RF      = 0            DXL_N33_RF       = -1.15E-8     DXW_N33_RF       = 1.8E-8 
++DVTH_N33_RF      = -0.05        DCJ_N33_RF       = -4.225E-5    DCJSW_N33_RF     = -1.705E-11
++DPVTH0_N33_RF    = -3.5E-15     DCGDO_N33_RF     = 0            DCGSO_N33_RF     = 0
+
+*3.3V IO PMOS
++DTOX_P33_RF      = 0            DXL_P33_RF       = 1.15E-8      DXW_P33_RF       = -1.8E-8 
++DVTH_P33_RF      = -0.04	 DCJ_P33_RF       = 5.05E-5      DCJSW_P33_RF     = 1.595E-11
++DPVTH0_P33_RF    = -2E-15       DCGDO_P33_RF     = 0            DCGSO_P33_RF     = 0 
+.INC 'ms018_rf_v1p5_mos.ckt' 
+.ENDL  FNSP
+
+.LIB SNFP
+.PARAM
+*1.8V core NMOS 
++DTOX_N18_RF      = 0            DXL_N18_RF       = 1.00E-8      DXW_N18_RF       = -1.8E-8 
++DVTH_N18_RF      = 0.045        DCJ_N18_RF       = 4.84E-5      DCJSW_N18_RF     = 2.09E-11
++DPVTH0_N18_RF    = 3E-15        DCGDO_N18_RF     = 0            DCGSO_N18_RF     = 0
+
+*1.8V core PMOS
++DTOX_P18_RF      = 0            DXL_P18_RF       = -1.00E-8     DXW_P18_RF       = 1.8E-8 
++DVTH_P18_RF      = 0.02         DCJ_P18_RF       = -5.35E-5     DCJSW_P18_RF     = -2.535E-11
++DPVTH0_P18_RF    = 1E-15        DCGDO_P18_RF     = 0            DCGSO_P18_RF     = 0
+
+*3.3V IO NMOS  
++DTOX_N33_RF      = 0            DXL_N33_RF       = 1.15E-8      DXW_N33_RF       = -1.8E-8 
++DVTH_N33_RF      = 0.05         DCJ_N33_RF       = 4.225E-5     DCJSW_N33_RF     = 1.705E-11
++DPVTH0_N33_RF    = 3.5E-15      DCGDO_N33_RF     = 0            DCGSO_N33_RF     = 0
+
+*3.3V IO PMOS
++DTOX_P33_RF      = 0            DXL_P33_RF       = -1.15E-8     DXW_P33_RF       = 1.8E-8 
++DVTH_P33_RF      = 0.04	 DCJ_P33_RF       = -5.05E-5     DCJSW_P33_RF     = -1.595E-11
++DPVTH0_P33_RF    = 2E-15        DCGDO_P33_RF     = 0            DCGSO_P33_RF     = 0
+.INC 'ms018_rf_v1p5_mos.ckt' 
+.ENDL  SNFP
+
+.LIB RES_TT
+.PARAM
+*Resistor
++DRNDIFSAB_RF       = 0          DRPDIFSAB_RF  = 0          DRNPOSAB_RF      = 0
++DRPPOSAB_RF        = 0          DRHRPO_RF     = 0
+.INC 'ms018_rf_v1p5_res.ckt'
+.ENDL RES_TT
+
+.LIB RES_FF
+.PARAM
+*Resistor
++DRNDIFSAB_RF       = -20.6       DRPDIFSAB_RF     = -40.1       DRNPOSAB_RF      = -38.1
++DRPPOSAB_RF        = -48.7       DRHRPO_RF        = -201.2
+.INC 'ms018_rf_v1p5_res.ckt'
+.ENDL RES_FF
+
+.LIB RES_SS
+.PARAM
+*Resistor
++DRNDIFSAB_RF       = 20.5       DRPDIFSAB_RF     = 40       DRNPOSAB_RF      = 38.1
++DRPPOSAB_RF        = 48.6       DRHRPO_RF        = 201.2
+.INC 'ms018_rf_v1p5_res.ckt'
+.ENDL RES_SS
+
+.LIB MIM_TT
+.PARAM
++DMIM1_RF         = 0
+.INC 'ms018_rf_v1p5_mim.ckt'
+.ENDL MIM_TT
+
+.LIB MIM_FF
+.PARAM
++DMIM1_RF         = -2E-4
+.INC 'ms018_rf_v1p5_mim.ckt'
+.ENDL MIM_FF
+
+.LIB MIM_SS
+.PARAM
++DMIM1_RF         = 2E-4
+.INC 'ms018_rf_v1p5_mim.ckt'
+.ENDL MIM_SS

@@ -1,0 +1,50 @@
+* 
+* No part of this file can be released without the consent of SMIC.
+*
+* Note: SMIC recommends that users set VNTOL=1E-9 at .option for more smooth convergence.
+******************************************************************************************
+* 0.18um Mixed Signal 1P6M with MIM Salicide 1.8V/3.3V RF SPICE Model (for HSPICE only)  *
+******************************************************************************************
+*
+* Release version    : 1.5
+*
+* Release date       : 12/22/2006
+*
+* Simulation tool    : Synopsys Star-HSPICE version 2005.9
+*
+*
+*  MIM Capacitor   :
+*
+*        *------------------------------------* 
+*        | 1fF/um^2 subckt   |  mim1_rf       |
+*        *------------------------------------*
+*******************************
+* 0.18um 1fF/um^2 MIM Capacitor
+*******************************
+* 1=port1, 2=port2
+.subckt mim1_rf 1 2 lr=l wr=w
+* mim capacitor scalable model parameters
+.param
++c0    = '1E-03+DMIM1_RF'      ctc1 = -3.482E-05       dt = 'temper' 
++cvc1  = -3.411E-5                cvc2 = -1.489E-5        
++tcoef = '1.0+ctc1*(dt-25.0)'
++Ls_rf     = 'max((0.1465+6.59474/(lr*wr*1E12)+215.51267/((lr*wr*1E12)*(lr*wr*1E12)))*1E-9, 1E-13)'
++Cf_rf     = '(c0*lr*wr)'              
++Rs_rf     = 'max(0.24417+185.93086/(lr*wr*1E12), 1E-6)'
++Rsub1_rf  = 'max(3.0E+04-2.0*lr*wr*1E12, 1E-3)'
++Csub1_rf  = 'max((0.08*lr*1E6)*1E-15, 1E-18)'  
++Cox1_rf   = 'max((2.5E-03*lr*wr*1E12)*1E-15, 1E-18)'            
++Rsub2_rf  = 'max(4.88E+03-0.6495*lr*wr*1E12, 1E-3)'
++Csub2_rf  = 'max((0.1*lr*1E6)*1E-15, 1E-18)'  
++Cox2_rf   = 'max((6.38E-03*lr*wr*1E12)*1E-15, 1E-18)'
+* equivalent circuit
+Rs 1 11    Rs_rf        
+Cf 22 2    'Cf_rf*tcoef*(1.0+v(22,2)*(cvc1+cvc2*v(22,2)))'
+Ls 11 22   Ls_rf    
+Rsub1 10 0 Rsub1_rf           
+Csub1 10 0 Csub1_rf
+Cox1 1 10  Cox1_rf  
+Rsub2 20 0 Rsub2_rf 
+Csub2 20 0 Csub2_rf        
+Cox2 2 20  Cox2_rf  
+.ends mim1_rf

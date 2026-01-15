@@ -1,0 +1,352 @@
+* 
+* No part of this file can be released without the consent of SMIC.
+*
+* Note: SMIC recommends that users set VNTOL=1E-9 at .option for more smooth convergence.
+***************************************************************************************** 
+* 0.18um Mixed Signal 1P6M with MIM Salicide 1.8V/3.3V RF SPICE Model (for HSPICE only)  
+*****************************************************************************************
+*
+* Release version    : 1.5
+*
+* Release date       : 12/22/2006
+*
+* Simulation tool    : Synopsys Star-HSPICE version 2005.9
+*
+*
+*   MOSFET Varactor  :
+*
+*        *----------------------------------------------------------------------* 
+*        |                      MOSFET varactor type                            |
+*        |======================================================================| 
+*        |   NMOS in NWELL 1.8V      |   pvar18w10l1_rf   |   pvar18w10ld5_rf   | 
+*        |                           |   pvar18w5l1_rf    |   pvar18w5ld5_rf    |
+*        |======================================================================| 
+*        |   NMOS in NWELL 3.3V      |   pvar33w10l1_rf   |   pvar33w10ld5_rf   | 
+*        *----------------------------------------------------------------------*
+*
+*        *----------------------------------------------------------------------* 
+*        |                      MOSFET varactor subckt                          |
+*        |======================================================================| 
+*        |   NMOS in NWELL 1.8V      | pvar18w10l1_ckt_rf | pvar18w10ld5_ckt_rf | 
+*        |                           | pvar18w5l1_ckt_rf  | pvar18w5ld5_ckt_rf  |
+*        |======================================================================| 
+*        |   NMOS in NWELL 3.3V      | pvar33w10l1_ckt_rf | pvar33w10ld5_ckt_rf | 
+*        *----------------------------------------------------------------------*
+*
+*   
+*   Junction Diode Varactor  :
+*
+*        *----------------------------------------------------------------------* 
+*        | Junction Diode type       |               1.8V | 3.3V                |
+*        |======================================================================| 
+*        |          N+/PWELL         |     pvardio18_rf   |    pvardio33_rf     |
+*        *----------------------------------------------------------------------*
+* 
+*        *----------------------------------------------------------------------* 
+*        | Junction Diode subckt     |               1.8V | 3.3V                |
+*        |======================================================================| 
+*        |          N+/PWELL         |   pvardio18_ckt_rf | pvardio33_ckt_rf    |
+*        *----------------------------------------------------------------------*
+*
+*            
+**************************************
+* 0.18um 1.8V MOS Varactor W/L=10/1um
+************************************** 
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar18w10l1_ckt_rf 1 2 lr=l wr=w nf=finger
+* 1.8v w=10um l=1um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.09284+(1.29385/(Ar*1E12))-(0.54792/(Ar*Ar*1E24)))*1E-9, 1E-15)'
++Rs_rf      = 'max(0.083+(459.73273/(Ar*1E12))-(556.39181/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(556.5175-(1.57331*(Ar*1E12))+(3.8559E-03*(Ar*Ar*1E24)), 1E-3)'
++Csub1_rf   = 'max((8.05487+0.02149*Ar*1E12)*1E-15, 1E-18)'
++Cox1_rf    = 'max((87.71847+(0.04284*Ar*1E12)-(5.6649E-05*Ar*Ar*1E24))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(248.42-(0.96964*(Ar*1E12))+(1.5562E-03*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((47.47+0.46523*Ar*1E12+2.182E-04*Ar*Ar*1E24)*1E-15, 1E-18)'
++Cox2_rf    = 'max((132.012+(0.9407*Ar*1E12)-(2.7708E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar18w10l1_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar18w10l1_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 0.45         K1   = 0.724  
++VTH0      = -1.463     ACDE      = 1.14         TOX  = 3.46E-9 
++TOXM      = 3.46E-9    NCH       = 3.216E+17    ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '9.74E-9*NF'      K3   = 0     
+.ends pvar18w10l1_ckt_rf
+*
+***************************************
+* 0.18um 1.8V MOS Varactor W/L=10/0.5um
+***************************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar18w10ld5_ckt_rf 1 2 lr=l wr=w nf=finger
+* 1.8v w=10um l=0.5um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.0852+(0.13076/(Ar*1E12)))*1E-9, 1E-15)'
++Rs_rf      = 'max(-1.03805+(397.19513/(Ar*1E12))-(1.5924E+03/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(457.77-(1.07243*(Ar*1E12)), 1E-3)'
++Csub1_rf   = 'max((13.83156-(50.84135/(Ar*1E12))+(150.48223/(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Cox1_rf    = 'max((134.10379-(393.92974/(Ar*1E12))+(1.4666E+03/(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(296.4222-(1.954*(Ar*1E12))+(0.01063*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((48.2247+(0.74002*Ar*1E12)-(1.0182E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
++Cox2_rf    = 'max((215.406+(0.2339*Ar*1E12)+(4.7151E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar18w10ld5_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar18w10ld5_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 0.45         K1   = 0.72  
++VTH0      = -1.39      ACDE      = 1.26         TOX  = 3.54E-9 
++TOXM      = 3.54E-9    NCH       = 2.016E+17    ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '2.125E-8*NF'     K3   = 0
+.ends pvar18w10ld5_ckt_rf
+*
+************************************
+* 0.18um 1.8V MOS Varactor W/L=5/1um
+************************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar18w5l1_ckt_rf 1 2 lr=l wr=w nf=finger
+* 1.8v w=5um l=1um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.10017+(0.83722/(Ar*1E12)))*1E-9, 1E-15)'
++Rs_rf      = 'max(-0.08387+(196.2729/(Ar*1E12))-(163.4976/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(499.965-(0.64767*(Ar*1E12)), 1E-3)'
++Csub1_rf   = 'max((15.26953-(15.14071/(Ar*1E12))+(34.13518/(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Cox1_rf    = 'max((96.91743-(0.02825*(Ar*1E12))+(1.3789E-03*(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(309.08425-(3.30267*(Ar*1E12))+(0.01572*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((40.17346+(0.85612*Ar*1E12)+(1.3059E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
++Cox2_rf    = 'max((136.2641+(0.83904*Ar*1E12)+(2.1065E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar18w5l1_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar18w5l1_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 0.45         K1   = 0.716  
++VTH0      = -1.439     ACDE      = 1.16         TOX  = 3.47E-9 
++TOXM      = 3.47E-9    NCH       = 2.02E+17     ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '5.63E-9*NF'      K3   = 0
+.ends pvar18w5l1_ckt_rf
+*
+**************************************
+* 0.18um 1.8V MOS Varactor W/L=5/0.5um
+**************************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar18w5ld5_ckt_rf 1 2 lr=l wr=w nf=finger
+* 1.8v w=5um l=0.5um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.07435-(0.01289/(Ar*1E12))+(1.74048/(Ar*Ar*1E24)))*1E-9, 1E-15)'
++Rs_rf      = 'max(-0.48084+(107.9149/(Ar*1E12))-(64.47816/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(446.9888+(123.7474/(Ar*1E12))-(138.0724/(Ar*Ar*1E24)), 1E-3)'
++Csub1_rf   = 'max((25.21696-(69.19762/(Ar*1E12))+(95.74595/(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Cox1_rf    = 'max((144.65044-(103.17346/(Ar*1E12))+(145.395/(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(314.42393-(4.36195*(Ar*1E12))+(0.0243*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((42.67786+(0.88835*Ar*1E12)-(3.9062E-04*Ar*Ar*1E24))*1E-15, 1E-18)'
++Cox2_rf    = 'max((173.2516+(0.73728*Ar*1E12)+(8.8677E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar18w5ld5_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar18w5ld5_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 0.45         K1   = 0.716  
++VTH0      = -1.407     ACDE      = 1.16         TOX  = 3.41E-9 
++TOXM      = 3.41E-9    NCH       = 2.52E+17     ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '1.126E-8*NF'     K3   = 0
+.ends pvar18w5ld5_ckt_rf
+*
+*************************************
+* 0.18um 3.3V MOS Varactor W/L=10/1um
+*************************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar33w10l1_ckt_rf 1 2 lr=l wr=w nf=finger
+* 3.3v w=10um l=1um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.10887-(0.84214/(Ar*1E12))+(42.9369/(Ar*Ar*1E24)))*1E-9, 1E-15)'
++Rs_rf      = 'max(-2.28745+(845.45731/(Ar*1E12))-(3.3958E+03/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(2500-(8.09363*(Ar*1E12))+(0.01806*(Ar*Ar*1E24)), 1E-3)'
++Csub1_rf   = 'max((-3.69447+(0.49422*(Ar*1E12))-(5.1566E-04*(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Cox1_rf    = 'max((20.30662+(0.04881*(Ar*1E12))-(7.8361E-05*(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(406.51895-(3.51578*(Ar*1E12))+(9.7288E-03*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((31.49815+(0.69886*Ar*1E12)-(1.9439E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
++Cox2_rf    = 'max((48.82294+(0.44648*Ar*1E12)-(5.3013E-04*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar33w10l1_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar33w10l1_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 2.2          K1   = 1.25  
++VTH0      = -1.804     ACDE      = 1.5          TOX  = 7.96E-9 
++TOXM      = 7.96E-9    NCH       = 1.26E+17     ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '7.82E-9*NF'      K3   = 0
+.ends pvar33w10l1_ckt_rf
+*
+***************************************
+* 0.18um 3.3V MOS Varactor W/L=10/0.5um
+***************************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvar33w10ld5_ckt_rf 1 2 lr=l wr=w nf=finger
+* 3.3v w=10um l=0.5um mos varactor scalable model parameters
+.param
++Ar         = 'lr*wr*nf'    
++Ls_rf      = 'max((0.06574+(3.27809/(Ar*1E12))+(1.9152/(Ar*Ar*1E24)))*1E-9, 1E-15)'
++Rs_rf      = 'max(0.12474+(415.79482/(Ar*1E12))-(601.94134/(Ar*Ar*1E24)), 1E-6)'
++Rsub1_rf   = 'max(1769.5-(3.25889*(Ar*1E12))+(9.3714E-03*(Ar*Ar*1E24)), 1E-3)'
++Csub1_rf   = 'max((2.69273+(0.31192*(Ar*1E12))+(7.3263E-04*(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Cox1_rf    = 'max((17.5427+(0.0244*(Ar*1E12))+(6.2365E-05*(Ar*Ar*1E24)))*1E-15, 1E-18)'
++Rsub2_rf   = 'max(437.11899-(2.13502*(Ar*1E12))+(4.0197E-03*(Ar*Ar*1E24)), 1E-3)'
++Csub2_rf   = 'max((26.83551+(0.68422*Ar*1E12)-(4.2321E-04*Ar*Ar*1E24))*1E-15, 1E-18)'
++Cox2_rf    = 'max((54.74146+(0.78482*Ar*1E12)-(1.3654E-03*Ar*Ar*1E24))*1E-15, 1E-18)'
+* equivalent circuit
+Ls    11 22  Ls_rf        
+Rs    1  11  Rs_rf    
+Rsub1 10  0  Rsub1_rf
+Csub1 10  0  Csub1_rf
+Cox1  1  10  Cox1_rf  
+Rsub2 20  0  Rsub2_rf
+Csub2 20  0  Csub2_rf        
+Cox2  2  20  Cox2_rf  
+Risod 3   0  1E12
+Risos 4   0  1E12   
+MAIN 3 22 4 2 pvar33w10ld5_rf L=lr W='wr*nf' AD=0 AS=0 PD=0 PS=0
+* MOS Varactor Model
+.MODEL pvar33w10ld5_rf PMOS
++LEVEL     = 49         VERSION   = 3.2          TNOM = 25
++CAPMOD    = 3          VOFFCV    = 2.2          K1   = 1.28  
++VTH0      = -1.77      ACDE      = 1.56         TOX  = 8.45E-9 
++TOXM      = 8.45E-9    NCH       = 1.22E+17     ACM  = 12
++CALCACM   = 1          BINUNIT   = 2            K2   = 0
++KT1       = 0.08       CGBO = '1.272E-8*NF'     K3   = 0
+.ends pvar33w10ld5_ckt_rf
+*
+****************************
+* 0.18um 1.8V P+/NW Varactor
+****************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvardio18_ckt_rf 1 2 lr=l wr=w nf=finger
+* P+/NW junction varactor scalable model parameters
+.param
++Ar        = 'lr*wr*nf'
++Ls_rf     = '(0.07947+(1.7134E-05*Ar*1E12)-(3.865E-09*Ar*Ar*1E24))*1E-9'
++Rs_rf     = '0.23268+(3.334E+03/(Ar*1E12))+(8.9147E+04/(Ar*Ar*1E24))'
++Rsub1_rf  = '1E+5'
++Csub1_rf  = '1*1E-15'
++Cox1_rf   = '1*1E-15'
++Rsub2_rf  = '1940-(1.6342*Ar*1E12)+(4.2816E-04*Ar*Ar*1E24)'
++Csub2_rf  = '(2.75025+(2.787E-03*Ar*1E12)+(1.3682E-06*Ar*Ar*1E24))*1E-15'
++Cox2_rf   = '(27.96263+(0.53519*Ar*1E12)-(9.0589E-05*Ar*Ar*1E24))*1E-15'
+Ls    1 11    LS_rf        
+Rs    11 22   Rs_rf    
+Cox1  1 10  Cox1_rf  
+Csub1 10 0 Csub1_rf
+Rsub1 10 0 Rsub1_rf        
+Cox2  2 20  Cox2_rf  
+Csub2 20 0 Csub2_rf
+Rsub2 20 0 Rsub2_rf
+Diode 22 2 pvardio18_rf AREA=Ar
+* P+/Nwell varactor Model
+.MODEL pvardio18_rf D
++LEVEL   = 3            CJ   = 1.1495E-3          MJ    = 0.37316    
++TREF    = 25           PB   = 0.76958            CTA   = 0.000876
++TPB     = 0.00153      FC   = 0                  FCS   = 0
++EG      = 1.16         TLEV = 1                  TLEVC = 1
+.ends pvardio18_ckt_rf
+*
+****************************
+* 0.18um 3.3V P+/NW Varactor
+****************************
+* 1=port1, 2=port2
+* Area=wr*lr*nf
+.subckt pvardio33_ckt_rf 1 2 lr=l wr=w nf=finger
+* P+/NW junction varactor scalable model parameters
+.param
++Ar        = 'lr*wr*nf'
++Ls_rf     = '(0.08203+(1.3302E-05*Ar*1E12)-(1.844E-09*Ar*Ar*1E24))*1E-9' 
++Rs_rf     = '0.25902+(3.3475E+03/(Ar*1E12))+(1.0295E+05/(Ar*Ar*1E24))'
++Rsub1_rf  = '1E+5'
++Csub1_rf  = '1*1E-15'
++Cox1_rf   = '1*1E-15'
++Rsub2_rf  = '1.869E+03-(1.49373*Ar*1E12)+(3.7877E-04*Ar*Ar*1E24)'
++Csub2_rf  = '(3.81691-(1.5322E-03*Ar*1E12)+(4.0789E-06*Ar*Ar*1E24))*1E-15'
++Cox2_rf   = '(64.90675+(0.37036*Ar*1E12)+(1.0985E-06*Ar*Ar*1E24))*1E-15'
+Ls    1 11    LS_rf        
+Rs    11 22   Rs_rf    
+Cox1  1 10  Cox1_rf  
+Csub1 10 0 Csub1_rf
+Rsub1 10 0 Rsub1_rf        
+Cox2  2 20  Cox2_rf  
+Csub2 20 0 Csub2_rf
+Rsub2 20 0 Rsub2_rf
+Diode 22 2 pvardio33_rf AREA=Ar
+* P+/Nwell varactor Model
+.MODEL pvardio33_rf D
++LEVEL   = 3            CJ   = 1.1455E-3          MJ    = 0.3793    
++TREF    = 25           PB   = 0.792              CTA   = 0.000897
++TPB     = 0.00166      FC   = 0                  FCS   = 0
++EG      = 1.16         TLEV = 1                  TLEVC = 1
+.ends pvardio33_ckt_rf

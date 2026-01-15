@@ -1,0 +1,25 @@
+* 
+* No part of this file can be released without the consent of SMIC.
+*
+******************************************************************************************
+*         SMIC 0.18um Mixed Signal 1P6M 1.8V/3.3V SPICE model (for HSPICE only)          *
+******************************************************************************************
+*
+* Release version    : 1.7
+*
+* Release date       : 12/13/2005
+*
+* Simulation tool    : Synopsys Star-HSPICE version 2002.2
+*
+*
+*   MIM capacitor    : mim 
+*   
+*   Valid temperature range is from -55C to 125C
+*
+*
+******************************************************************
+*                      MIM Capacitor                             * 
+******************************************************************
+.model mim c
++COX = '9.71E-04+DMIM'         TC1 = -3.48E-05          TREF  = 25
+*

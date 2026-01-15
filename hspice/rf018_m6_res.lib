@@ -1,0 +1,37 @@
+* This file contains M6 corner model parameters.
+* Three corners are supported: TT, FF, SS.
+* This file should be used with the model parameter file 'rf018_m6_res.mdl'.
+* No part of this file can be released without the consent of SMIC.
+
+
+***********************
+* Resistor Corner model
+***********************
+
+.LIB RES_TT
+.PARAM
+*Resistor
++DRSH_RM6_RF      = 0
++DDW_RM6_RF       = 0
+ 
+.INC 'rf018_m6_res.mdl' 
+.ENDL  RES_TT
+
+.LIB RES_FF
+.PARAM
+*Resistor
++DRSH_RM6_RF      = -0.005
++DDW_RM6_RF       = 0
+
+.INC 'rf018_m6_res.mdl' 
+.ENDL  RES_FF
+
+.LIB RES_SS
+.PARAM
+*Resistor
++DRSH_RM6_RF      = 0.005
++DDW_RM6_RF       = 0
+
+
+.INC 'rf018_m6_res.mdl' 
+.ENDL  RES_SS

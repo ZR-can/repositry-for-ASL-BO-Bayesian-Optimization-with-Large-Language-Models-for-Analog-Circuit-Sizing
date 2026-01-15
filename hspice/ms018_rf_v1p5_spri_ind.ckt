@@ -1,0 +1,61 @@
+* 
+* No part of this file can be released without the consent of SMIC.
+*
+* Note: SMIC recommends that users set VNTOL=1E-9 at .option for more smooth convergence.
+******************************************************************************************
+* 0.18um Mixed Signal 1P6M with MIM Salicide 1.8V/3.3V RF SPICE Model (for HSPICE only)  *
+******************************************************************************************
+*
+* Release version    : 1.5
+*
+* Release date       : 12/22/2006
+*
+* Simulation tool    : Synopsys Star-HSPICE version 2005.9
+*
+*
+*  Inductor   :
+*
+*        *------------------------------* 
+*        | Inductor subckt |  ind_rf    |
+*        *------------------------------*
+*****************
+* 0.18um Inductor
+*****************
+* 1=port1(M6), 2=port2(M5)
+* R means inner redius; N means turns
+* Spacing is fixed at 1.5um and width is fixed at 8um
+.subckt ind_rf 1 2 R=radius N=turns
+* inductor scalable model parameters
+.param
++Ls_rf     = 'max((-1.7271-0.3612*N+0.2907*N*N+0.03256*R*1E6+0.000171*R*R*1E12)*1E-9, 1E-12)'
++Cf_rf     = 'max((-25.41496+11.26813*N-1.25661*N*N+0.36097*R*1E6-0.0021636*R*R*1E12)*1E-15, 1E-18)'
++Rs_rf     = 'max(-1.1605+0.66174*N+0.07719*N*N+0.02008*R*1E6+0.00011029*R*R*1E12, 1E-6)'
++Rsub1_rf  = 'max(-481.30593+865.77248*Ls_rf*1E9, 1E-6)'
++Csub1_rf  = 'max((6.5234+1.4844*Ls_rf*1E9)*1E-15, 1E-18)'
++Lsub1_rf  = 'max((0.44838+0.25562*Ls_rf*1E9)*1E-9, 1E-15)'
++Rsub2_rf  = 'max(4.59004+142.22678*Ls_rf*1E9, 1E-6)'
++Csub2_rf  = 'max((6.12101+1.24623*Ls_rf*1E9)*1E-15, 1E-18)'
++Lsub2_rf  = 'max((1.11853+0.04748*Ls_rf*1E9)*1E-9, 1E-15)'
++Rs2_rf    = 'max(7601.8+418.71024*Ls_rf*1E9, 1E-6)'
++C11_rf    = 'max((8.677+3.5886*Ls_rf*1E9)*1E-15, 1E-18)'
++R11_rf    = 'max(66.08792+7.94856*Ls_rf*1E9, 1E-6)'
++C22_rf    = 'max((4.46577+3.65857*Ls_rf*1E9)*1E-15, 1E-18)'
++R22_rf    = 'max(122.87152-5.8835*Ls_rf*1E9, 1E-6)'
++R12_rf    = 'max(0.07804+0.00099619*Ls_rf*1E9, 1E-6)'
+* equivalent circuit
+Ls 1 4       Ls_rf
+Cf 1 3       Cf_rf
+Rs 4 2       Rs_rf
+Rsub1 1  11  Rsub1_rf
+Csub1 11 12  Csub1_rf
+Lsub1 12 10  Lsub1_rf
+Rsub2 2  21  Rsub2_rf
+Csub2 21 22  Csub2_rf
+Lsub2 22 20  Lsub1_rf
+Rs2 1 2      Rs2_rf
+C11 1 10     C11_rf
+R11 10 0     R11_rf
+C22 2 20     C22_rf
+R22 20 0     R22_rf
+R12 3 2      R12_rf
+.ends ind_rf
